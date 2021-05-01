@@ -12,7 +12,13 @@ ReactDOM.render(
 );
 
 const name = "Maulana Ahmad";
-const element = <h1> Hallo {name} ! </h1>;
+
+function great() {
+  return "Hallo " + name
+}
+
+const element = <h1> {great(name)} ! </h1>;
+
 ReactDOM.render(
   element,
   document.getElementById('master')
