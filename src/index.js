@@ -11,18 +11,6 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-const name = "Maulana Ahmad";
-
-function great() {
-  return "Hallo " + name
-}
-
-const element = <h1> {great(name)} ! </h1>;
-
-ReactDOM.render(
-  element,
-  document.getElementById('master')
-);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
