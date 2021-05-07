@@ -1,14 +1,39 @@
 import logo from './logo.svg';
 import './App.css';
+import { Component } from 'react';
 
-// Component dan props di react
+// STATE
+// hanya bisa dibuat di component class, bukan di component function
 
-function Biodata(props) {
-  return <span> umurnya {props.age} </span>
-}
+class Timer extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      time : props.start
+    }
+  }
 
-function Greating(props) {
-  return <h1> Halo {props.name} - <Biodata age={props.age} /> </h1>
+  // Lifecycle
+  componentDidMount() {
+    this.addInterval = setInterval( () => this.increase(), 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.addInterval)
+  }
+
+  increase() {
+    // update state setiap detik
+    this.setState((state, props) => ({
+      time: parseInt(state.time) + 1
+    }))
+  }
+
+  render() {
+    return (
+      <div> {this.state.time} Detik</div>
+    );
+  }
 }
 
 function App() {
@@ -16,8 +41,8 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <Greating name = "Yuda" age = "24" />
-        <Greating name = "Arva" age = "20" />
+        <Timer start = "0" />
+        <Timer start = "5" />
       </header>
     </div>
   );
