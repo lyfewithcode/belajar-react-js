@@ -2,17 +2,32 @@ import logo from './logo.svg';
 import './App.css';
 import { Component } from 'react';
 
-// Event: Menggunakan function component
+// Handle event: Menggunakan class component
 
-function Clicker() {
-  function handleClick(e) {
-    alert('Berhasil mengklik!')
-    e.preventDeafault()
+class Toggle extends Component {
+  constructor(props) {
+    super(props)
+      this.state = {
+        toggleStatus: true
+      }
+      
+      this.hadleClick = this.hadleClick.bind(this)
   }
 
-  return (
-    <a href="#" onClick = {handleClick}> Klik di sini!</a>
-  )
+  hadleClick() {
+    this.setState(state => ({
+      toggleStatus: !state.toggleStatus
+    }))
+  }
+
+  render() {
+    return (
+      <button onClick={this.hadleClick}>
+        {this.state.toggleStatus ? 'ON' : 'OFF'}
+        <p>Kondisi sekarang {this.state.toggleStatus ? 'nyala' : 'mati'}</p>
+      </button>
+    )
+  }
 }
 
 function App() {
@@ -20,7 +35,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <Clicker />
+        <Toggle />
       </header>
     </div>
   );
