@@ -1,44 +1,45 @@
 import logo from './logo.svg';
 import './App.css';
 import { Component } from 'react';
+import List from './List';
 
-// Handle event: Menggunakan class component
 
-class Toggle extends Component {
-  constructor(props) {
+
+class App extends Component {
+  constructor (props) {
     super(props)
-      this.state = {
-        toggleStatus: true
-      }
-      
-      this.hadleClick = this.hadleClick.bind(this)
+    this.state = {
+      todoItem: '',
+      items: []
+    }
   }
 
-  hadleClick() {
-    this.setState(state => ({
-      toggleStatus: !state.toggleStatus
-    }))
+  handleSubmit = (event) => {
+    event.preventDefault()
+    this.setState({
+      items    : [...this.state.items, this.state.todoItem],
+      todoItem : ''
+    })
   }
 
+  handleChange = (event) => {
+    this.setState({
+      todoItem: event.target.value
+    })
+  }
+  
   render() {
     return (
-      <button onClick={this.hadleClick}>
-        {this.state.toggleStatus ? 'ON' : 'OFF'}
-        <p>Kondisi sekarang {this.state.toggleStatus ? 'nyala' : 'mati'}</p>
-      </button>
-    )
-  }
-}
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <input value={this.state.todoItem} onChange={this.handleChange} />
+          <button>Add</button>
+        </form>
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Toggle />
-      </header>
-    </div>
-  );
+        <List items={this.state.items} />
+      </div>
+    );
+  }
 }
 
 export default App;
